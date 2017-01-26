@@ -64,12 +64,22 @@ class nodejs::install {
       default   => '/root/.npmrc',
   }
 
+  $npmrc_user = $::facts['os']['family'] ? {
+      'windows' => undef,
+      default   => 'root',
+  }
+
+  $npmrc_group = $::facts['os']['family'] ? {
+      'windows' => undef,
+      default   => 'root',
+  }
+
   file { 'root_npmrc':
     ensure  => 'file',
     path    => $npmrc_root_path,
     content => template('nodejs/npmrc.erb'),
-    owner   => 'root',
-    group   => '0',
+    owner   => $npmrc_user,
+    group   => $npmrc_group,
     mode    => '0600',
   }
 }
