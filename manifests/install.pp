@@ -60,7 +60,7 @@ class nodejs::install {
   }
 
   $npmrc_root_path = $::facts['os']['family'] ? {
-      'Windows' => 'C:\Program Files\nodejs\node_modules\npm\npmmrc',
+      'windows' => 'C:\Program Files\nodejs\node_modules\npm\npmmrc',
       default   => '/root/.npmrc',
   }
 
