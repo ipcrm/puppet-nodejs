@@ -59,9 +59,14 @@ class nodejs::install {
     }
   }
 
+  $npmrc_root_path = $::facts['os']['family'] ? {
+      'Windows' => 'C:\Program Files\nodejs\node_modules\npm\npmmrc',
+      default   => '/root/.npmrc',
+  }
+
   file { 'root_npmrc':
     ensure  => 'file',
-    path    => '/root/.npmrc',
+    path    => $npmrc_root_path,
     content => template('nodejs/npmrc.erb'),
     owner   => 'root',
     group   => '0',
